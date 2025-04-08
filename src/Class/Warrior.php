@@ -14,46 +14,41 @@ class Warrior extends PlayableCharacter
         $this->setHealth($health);
     }
 
-    public function getGender(): string
+    public function getWeapon(): string
     {
-        return $this->gender;
-    }
-
-    public function getAge(): int
-    {
-        return $this->age;
-    }
-
-    public function setHealth(int $health)
-    {
-        $this->health = $health;
-    }
-
-    public function takeDamage(int $hitPoints)
-    {
-        $this->health -= $hitPoints;
-    }
-
-    public function getHealth(): int
-    {
-        return $this->health;
+        return $this->weapon;
     }
 
     public function introduce(): string
     {
         return "$this->name is a warrior. They are $this->age.  The name of their weapon is $this->weapon";
     }
-    public function defend(): string
+
+    public function defenceCheck(Dice $roll): bool
     {
-        return "$this->name uses $this->defensiveMove";
+        $result = $roll->getResult($roll->getSides());
+        return $result > 4;
     }
 
-    public function attack(PlayableCharacter $player): string
+
+    public function attack(PlayableCharacter $player, Dice $dice): string
     {
         $damage = 5;
-        $player->takeDamage($damage);
-        return $this->getName() . " attacked " . $player->getName() . '.  ' . $player->getName() . "'s health is now: " . $player->getHealth();
+        echo "$this->name attacks " . $player->getName() . ' using ' . $this->weapon . '.' . PHP_EOL;
+        return $player->defend($dice, $damage);
     }
 
+    public function defend(Dice $dice, int $damage): string
+    {
+        if ($this->defenceCheck($dice))
+        {
+            return "$this->name uses $this->defensiveMove";
+        }
+        else
+        {
+            $this->takeDamage($damage);
+            return "$this->name was hit. $this->name has $this->health remaining.";
+        }
+    }
 
 }

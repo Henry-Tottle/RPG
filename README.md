@@ -1,5 +1,4 @@
-# OO Project Set-up
-
+# RPG Game
 Clone the repo  
 Run `composer install`  
 If no global composer install, run `php composer.phar install`
@@ -15,8 +14,12 @@ Warrior Mage Rogue Game
         - create warrior class that inherits
         - create test for warrior methods
         - create more warrior methods
+            - attack
+            - defend
+            - heal
+        - create dice roll mechanic
+        - create other classes
 
-ideas for further down the line?
-Would a service be good for DOT or afflictions?
+
 
         

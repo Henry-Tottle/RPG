@@ -4,7 +4,13 @@ namespace RPG\Class;
 
 class Dice
 {
-    private int $sides = 6;
+    private int $sides;
+    private int $lastRoll;
+
+    public function __construct(int $sides = 6)
+    {
+        $this->sides = $sides;
+    }
 
     public function getSides(): int
     {
@@ -13,13 +19,16 @@ class Dice
 
 
 
-    public function getResult(int $sides): int
+    public function getResult(): int
     {
-        return rand(1, $sides);
+        $this->lastRoll = rand(0, $this->sides);
+        return $this->lastRoll;
     }
 
-    public function roll($sides)
+    public function getLastRoll(): ?int
     {
-
+        return $this->lastRoll ?? null;
     }
+
+
 }
