@@ -26,14 +26,14 @@ class Warrior extends PlayableCharacter
 
     public function defenceCheck(Dice $roll): bool
     {
-        $result = $roll->getResult($roll->getSides());
+        $result = $roll->getResult();
         return $result > 4;
     }
 
 
     public function attack(PlayableCharacter $player, Dice $dice): string
     {
-        $damage = 5;
+        $damage = $dice->getResult();
         echo "$this->name attacks " . $player->getName() . ' using ' . $this->weapon . '.' . PHP_EOL;
         return $player->defend($dice, $damage);
     }
@@ -47,7 +47,8 @@ class Warrior extends PlayableCharacter
         else
         {
             $this->takeDamage($damage);
-            return "$this->name was hit. $this->name has $this->health remaining.";
+            return $this->getHealth() > 0 ? "$this->name was hit. $this->name has $this->health remaining."
+                : "$this->name was hit and was mortally wounded.";
         }
     }
 

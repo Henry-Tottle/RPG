@@ -46,10 +46,25 @@ class WarriorTest extends TestCase
         $this->assertEquals(10, $this->warrior->getHealth());
     }
 
+    public function testFailedDefendResultsInDeath()
+    {
+        $dice = $this->createMock(Dice::class);
+        $dice->method('getSides')->willReturn(6);
+        $dice->method('getResult')->willReturn(3);
+        $this->warrior->setHealth(5);
+        $result = $this->warrior->defend($dice, 6);
+        $this->assertStringContainsString('was hit and was mortally wounded', $result);
+        $this->assertEquals(-1, $this->warrior->getHealth());
+
+
+    }
+
     public function testAttackCallsDefendOnOpponent()
     {
         $opponent = $this->createMock(\RPG\Class\PlayableCharacter::class);
         $dice = $this->createMock(Dice::class);
+        $dice->method('getSides')->willReturn(6);
+        $dice->method('getResult')->willReturn(5);
 
         $opponent->expects($this->once())
             ->method('defend')
