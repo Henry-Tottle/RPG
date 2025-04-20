@@ -37,7 +37,7 @@ abstract class Character
         return $this->items;
     }
 
-    public function setItems(array $items)
+    public function setItems(array $items): void
     {
         $this->items = $items;
     }
@@ -70,6 +70,18 @@ abstract class Character
         }
     }
 
+    public function evade(Dice $dice, Character $opponent): string
+    {
+        if ($dice->getResult() > 4)
+        {
+            return $opponent->getName() . ' evaded the attack. ' . PHP_EOL;
+        }
+        else
+        {
+            return $this->defend($dice);
+        }
+    }
+
     public function heal(): string
     {
         $items = $this->getItems();
@@ -78,7 +90,7 @@ abstract class Character
         $this->setItems($items);
         $itemQuantity = $this->items['Health Potion'];
 
-        return "$this->name drank a health potion and now has $this->health HP.  They have $itemQuantity potions left.";
+        return "$this->name drank a health potion and now has $this->health HP.  They have $itemQuantity potions left." . PHP_EOL;
     }
 
 

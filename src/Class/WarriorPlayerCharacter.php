@@ -15,7 +15,7 @@ class WarriorPlayerCharacter extends Character
     public function attack(Character $opponent, Dice $dice): string
     {
         $result = "$this->name swings at $opponent->name with $this->weapon. ";
-        $result .= $opponent->defend($dice);
+        $result .= $opponent->evade($dice, $opponent);
         return $result;
     }
 }
