@@ -17,11 +17,9 @@ class Dice
         return $this->sides;
     }
 
-
-
     public function getResult(): int
     {
-        $this->lastRoll = rand(0, $this->sides);
+        $this->lastRoll = rand(1, $this->sides);
         return $this->lastRoll;
     }
 
