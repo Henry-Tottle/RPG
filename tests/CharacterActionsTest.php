@@ -93,6 +93,18 @@ class CharacterActionsTest extends TestCase
         $this->assertEquals("Arthas drank a health potion and now has 10 HP.  They have 1 potions left.\n", $result);
     }
 
+    public function testDefendFailsMortallyWounded()
+    {
+        $dice = $this->createMock(Dice::class);
+        $dice->method('getResult')->willReturn(3);
+
+        $this->WarriorCharacter->setHealth(1);
+
+        $result = $this->WarriorCharacter->defend($dice);
+
+        $this->assertEquals("Arthas took damage.  They are mortally wounded.", $result);
+    }
+
 
 
 }
