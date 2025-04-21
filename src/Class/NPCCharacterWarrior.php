@@ -15,10 +15,19 @@ class NPCCharacterWarrior extends Character
         $this->description = $description;
         $this->items['Health Potion'] = rand(0,1);
     }
+    public function getWeapon(): string
+    {
+        return $this->weapon;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
 
     public function introduce(): string
     {
-        return $this->getName() . " is $this->description.  It is wielding a $this->weapon.";
+        return $this->getName() . " is $this->description. ". $this->getName() . " is wielding a $this->weapon.";
     }
 
     public function attack(Dice $dice, Character $opponent): string

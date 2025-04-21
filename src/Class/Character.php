@@ -66,7 +66,8 @@ abstract class Character
         else
         {
             $this->takeDamage($dice->getResult());
-            return "$this->name took damage.  They have $this->health remaining.";
+            $this->health < 1 ? $result = 'They are mortally wounded.' : $result = "They have $this->health remaining.";
+            return $this->getName() . " took damage.  $result";
         }
     }
 
@@ -92,6 +93,7 @@ abstract class Character
 
         return "$this->name drank a health potion and now has $this->health HP.  They have $itemQuantity potions left." . PHP_EOL;
     }
+
 
 
 
